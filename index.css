@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+.wrapper {
+    height: 100%;
+}
+
+@keyframes gradient {
+    100% {
+        background-size: 4000px 1000px;
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("bg.jpg");
+    background-size: 2000px 1100px;
+    color: #f9f9f9;
+    font-family: 'Varela Round', sans-serif;
+    animation: gradient 10s infinite alternate linear;
+    overflow-y: hidden;
+}
+
+h1 {
+    text-align: center;
+    color: #bee8f4;
+}
+
+input {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    color: #fff;
+    background-color: #96c0e0;
+    border-color: #72a1cd;
+    border-radius: 4px;
+    border-width: 2px;
+    font-size: 16px;
+}
+
+input::after{
+    background-color: #3387c7;
+}
+
+input:focus {
+    background-color: #72a1cd;
+}
+
+#board {
+    position: relative;
+    width: 270px;
+    padding-top: 8%;
+    padding-bottom: 7.5%;
+    margin: 0 auto;
+}
+
+#options {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 15px;
+    color: #bee8f4;
+    background-color: #3387c7;
+    border: 0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 80%;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2182cc;
+    color: #f9f9f9;
+    opacity: 100%;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+#credit {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: #bee8f4;
+}
+
+a:hover {
+    color: #fff;
+}
