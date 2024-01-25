@@ -51,16 +51,18 @@ function isSafe(board, row, col, num) {
     return true;
 }
 
-function solveSudokuUtil(board) {
-    for (let row = 0; row < 9; row++) {
-        for (let col = 0; col < 9; col++) {
+function solveSudokuHelper(board) {
+    const gridSize = 9;
+
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
             if (board[row][col] === 0) {
                 for (let num = 1; num <= 9; num++) {
                     if (isSafe(board, row, col, num)) {
                         board[row][col] = num;
 
-                        if (solveSudokuUtil(board)) {
-                            return true;
+                        if (solveSudokuHelper(board)) {
+                            return [...board];
                         }
 
                         board[row][col] = 0;
@@ -70,13 +72,61 @@ function solveSudokuUtil(board) {
             }
         }
     }
+
+    return [...board];
+}
+
+function isValidSudoku(board) {
+    const gridSize = 9;
+
+    for (let i = 0; i < gridSize; i++) {
+        const rowSet = new Set();
+        const colSet = new Set();
+
+        for (let j = 0; j < gridSize; j++) {
+            const rowValue = board[i][j];
+            const colValue = board[j][i];
+
+            if(rowValue == '') continue;
+            if(colValue == '') continue;
+
+            if (rowSet.has(rowValue)) {
+                return false;
+            }
+            rowSet.add(rowValue);
+
+            if (colSet.has(colValue)) {
+                return false;
+            }
+            colSet.add(colValue);
+        }
+    }
+
+    for (let startRow = 0; startRow < gridSize; startRow += 3) {
+        for (let startCol = 0; startCol < gridSize; startCol += 3) {
+            const subgridSet = new Set();
+
+            for (let i = startRow; i < startRow + 3; i++) {
+                for (let j = startCol; j < startCol + 3; j++) {
+                    const subgridValue = board[i][j];
+                    if(subgridValue == '') continue;
+
+                    if (subgridSet.has(subgridValue)) {
+                        return false;
+                    }
+                    subgridSet.add(subgridValue);
+                }
+            }
+        }
+    }
+
     return true;
 }
 
 function solve() {
     const boardState = getBoardState();
     const board = [];
-    
+
     for (let i = 0; i < 9; i++) {
         const row = [];
         for (let j = 0; j < 9; j++) {
@@ -85,10 +135,10 @@ function solve() {
         board.push(row);
     }
 
-    if (solveSudokuUtil(board)) {
+    if (isValidSudoku(board) && solveSudokuHelper(board)) {
         setBoardState(board.flat());
     } else {
-        console.log('No solution exists.');
+        alert('No solution exists.');
     }
 }
 
